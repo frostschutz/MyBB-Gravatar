@@ -60,8 +60,6 @@ function gravatar_get_link($email)
  */
 function gravatar_usercp_avatar_start()
 {
-    echo "gravatar_usercp_avatar_start";
-
     global $mybb, $lang, $templates, $gravatar;
 
     $lang->load('gravatar');
