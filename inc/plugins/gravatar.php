@@ -41,7 +41,7 @@ function gravatar_info()
         "author"        => "Andreas Klauer",
         "authorsite"    => "mailto:Andreas.Klauer@metamorpher.de",
         "version"       => "0.1",
-        "guid"          => "",
+        "guid"          => "1e97df95cb52aaf639aaa37f58c0fbee",
         "compatibility" => "14*,15*,16*"
         );
 }
