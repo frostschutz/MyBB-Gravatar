@@ -48,16 +48,22 @@ function gravatar_info()
 
 function gravatar_deactivate()
 {
+    global $db;
+
     require_once MYBB_ROOT."inc/adminfunctions_templates.php";
 
     find_replace_templatesets('usercp_avatar',
                               "#([\r\n ]*\\{\\\$gravatar\\}[\r\n ]*)#",
                               "\n",
-                              0);
+                              0); // work around MyBB bug
+
+    $db->delete_query("templates", "title='gravatar'");
 }
 
 function gravatar_activate()
 {
+    global $db;
+
     // Remove stuff first to avoid doubling problem.
     gravatar_deactivate();
 
@@ -67,6 +73,34 @@ function gravatar_activate()
     find_replace_templatesets('usercp_avatar',
                               "#(</table>[\r\n ]*<br />)#i",
                               "\n{\$gravatar}\n\\1");
+
+    $template = array("title" => "gravatar",
+                      "sid" => "-1",
+                      "template" => "
+<tr>
+<td class=\"trow1\" width=\"40%\">
+<strong>{\$lang->gravatar}</strong>
+</td>
+<td class=\"trow1\">
+<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+<tbody>
+<tr>
+<td>
+{\$lang->gravatar_caption}<br />
+{\$lang->gravatar_email}
+</td>
+<td align=\"right\">
+<label><input type=\"checkbox\" name=\"gravatar\" value=\"1\" /><img align=\"middle\" src=\"{\$gravatar_url}?s=60\" alt=\"{\$lang->gravatar}\" title=\"{\$lang->gravatar}\"></label>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+",
+        );
+
+    $db->insert_query("templates", $template);
 }
 
 /* --- Helpers: --- */
