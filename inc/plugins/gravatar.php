@@ -90,7 +90,7 @@ function gravatar_activate()
 {\$lang->gravatar_email}
 </td>
 <td align=\"right\">
-<label><input type=\"checkbox\" name=\"gravatar\" value=\"1\" /><img align=\"middle\" src=\"{\$gravatar_url}?s=60\" alt=\"{\$lang->gravatar}\" title=\"{\$lang->gravatar}\"></label>
+<label><input type=\"checkbox\" name=\"gravatar\" value=\"1\" /><img align=\"middle\" src=\"{\$gravatar_url}\" alt=\"{\$lang->gravatar}\" title=\"{\$lang->gravatar}\"></label>
 </td>
 </tr>
 </tbody>
