@@ -124,6 +124,8 @@ function gravatar_usercp_avatar_start()
     $lang->gravatar_email = $lang->sprintf($lang->gravatar_email,
                                            $mybb->user['email']);
 
+    $gravatar_url = gravatar_get_link($mybb->user['email']);
+
     eval("\$gravatar = \"".$templates->get("gravatar")."\";");
 }
 
