@@ -27,6 +27,8 @@ if(!defined("IN_MYBB"))
 
 /* --- Hooks: --- */
 
+$plugins->add_hook("usercp_avatar_start", "gravatar_usercp_avatar_start");
+
 /* --- Plugin API: --- */
 
 function gravatar_info()
@@ -47,10 +49,21 @@ function gravatar_info()
 
 function gravatar_get_link($email)
 {
-    return "http://www.gravatar.com/avatars/".md5(trim(my_strtolower($email)));
+    return "http://www.gravatar.com/avatar/".md5(trim(my_strtolower($email)));
 }
 
 /* --- Functionality: --- */
+
+function gravatar_usercp_avatar_start()
+{
+    echo "gravatar_usercp_avatar_start";
+
+    global $mybb, $templates, $gravatar;
+
+    $gravatar_url = gravatar_get_link($mybb->user['email']);
+
+    eval("\$gravatar = \"".$templates->get("gravatar")."\";");
+}
 
 /* --- End of file. --- */
 ?>
