@@ -28,6 +28,7 @@ if(!defined("IN_MYBB"))
 /* --- Hooks: --- */
 
 $plugins->add_hook("usercp_avatar_start", "gravatar_usercp_avatar_start");
+$plugins->add_hook("usercp_do_avatar_start", "gravatar_usercp_do_avatar_start");
 
 /* --- Plugin API: --- */
 
@@ -54,6 +55,9 @@ function gravatar_get_link($email)
 
 /* --- Functionality: --- */
 
+/*
+ * Display a Gravatar checkbox.
+ */
 function gravatar_usercp_avatar_start()
 {
     echo "gravatar_usercp_avatar_start";
@@ -63,6 +67,20 @@ function gravatar_usercp_avatar_start()
     $gravatar_url = gravatar_get_link($mybb->user['email']);
 
     eval("\$gravatar = \"".$templates->get("gravatar")."\";");
+}
+
+/*
+ * Check if the user checked the Gravatar box,
+ * and then just set the Avatar URL to the Gravatar URL.
+ */
+function gravatar_usercp_do_avatar_start()
+{
+    global $mybb;
+
+    if($mybb->input['gravatar'])
+    {
+        $mybb->input['avatarurl'] = gravatar_get_link($mybb->user['email']);
+    }
 }
 
 /* --- End of file. --- */
