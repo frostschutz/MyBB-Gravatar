@@ -46,6 +46,29 @@ function gravatar_info()
         );
 }
 
+function gravatar_deactivate()
+{
+    require_once MYBB_ROOT."inc/adminfunctions_templates.php";
+
+    find_replace_templatesets('usercp_avatar',
+                              "#([\r\n ]*\\{\\\$gravatar\\}[\r\n ]*)#",
+                              "\n",
+                              0);
+}
+
+function gravatar_activate()
+{
+    // Remove stuff first to avoid doubling problem.
+    gravatar_deactivate();
+
+    // Insert {$gravatar} into the usercp_avatar template.
+    require_once MYBB_ROOT."inc/adminfunctions_templates.php";
+
+    find_replace_templatesets('usercp_avatar',
+                              "#(</table>[\r\n ]*<br />)#i",
+                              "\n{\$gravatar}\n\\1");
+}
+
 /* --- Helpers: --- */
 
 function gravatar_get_link($email)
