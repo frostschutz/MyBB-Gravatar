@@ -62,7 +62,12 @@ function gravatar_usercp_avatar_start()
 {
     echo "gravatar_usercp_avatar_start";
 
-    global $mybb, $templates, $gravatar;
+    global $mybb, $lang, $templates, $gravatar;
+
+    $lang->load('gravatar');
+
+    $lang->gravatar_email = $lang->sprintf($lang->gravatar_email,
+                                           $mybb->user['email']);
 
     $gravatar_url = gravatar_get_link($mybb->user['email']);
 
